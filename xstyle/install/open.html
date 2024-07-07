@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>xStyle</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="https://lib.baomitu.com/material-design-icons/3.0.1/iconfont/material-icons.min.css">
+	<link rel="stylesheet" type="text/css" href="https://lib.baomitu.com/material-design-lite/1.3.0/material.teal-red.min.css">
+	<meta charset="utf-8">
+	<style>
+	.mdl-spinner {
+		width: 64px;
+		height: 64px;
+	}
+	</style>
+</head>
+<body>
+<div style="text-align:center;padding-top:30px">
+	<div class="loading mdl-spinner mdl-js-spinner is-active"></div>
+	<p id="info"></p>
+	<p id="back" style="display:none"><a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="javascript:history.go(-1);"></a></p>
+</div>
+<script src="https://lib.baomitu.com/material-design-lite/1.3.0/material.min.js"></script>
+<script>
+var info = '', wait = '', back = '';
+switch (navigator.language) {
+	case 'zh-CN':
+		info = '安装完成';
+		wait = '请稍候';
+		back = '返回';
+		break;
+	case 'zh-TW':
+		info = '安裝完成';
+		wait = '請稍候';
+		back = '返回';
+		break;
+	default:
+		info = 'Install completed';
+		wait = 'Please wait';
+		back = 'Back';
+		break;
+}
+document.getElementById('info').innerHTML = wait;
+document.querySelector('#back a').innerHTML = back;
+document.addEventListener('styleInstalled', function() {
+	document.querySelector('.loading').style.display = 'none';
+	document.getElementById('info').innerHTML = info;
+	if (history.length > 1) {
+		document.querySelector('#back').style.display = 'block';
+	}
+}, false);
+</script>
+</body>
+</html>
