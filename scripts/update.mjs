@@ -21,12 +21,12 @@ async function main() {
   const assets = JSON.parse(process.env.ASSETS);
 
   const outputFolder = [
-    join(__dirname, '../temp', name),
+    join(__dirname, '../temp', name, 'install'),
   ];
 
   // Header Editor has multi output folders
   if (name === 'header-editor') {
-    outputFolder.push(join(__dirname, '../temp/headereditor'));
+    outputFolder.push(join(__dirname, '../temp/headereditor/install'));
   }
 
   for (const item of assets) {
