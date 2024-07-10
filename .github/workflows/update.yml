@@ -1,0 +1,45 @@
+name: update
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        type: string
+      version:
+        type: string
+      assets:
+        type: string
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
+    steps:
+    - uses: actions/checkout@v3
+    - uses: pnpm/action-setup@v4
+      with:
+        version: 7
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Copy public
+      run: cp -r ./public ./temp
+    - name: Genetare update files
+      env:
+        NAME: ${{ inputs.name }}
+        VERSION: ${{ inputs.version }}
+        ASSETS: ${{ inputs.assets }}
+      run: node ./scripts/update.mjs
+    - name: Deploy
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: gh-pages
+        folder: temp
+        clean: false
