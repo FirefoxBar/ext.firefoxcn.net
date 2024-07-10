@@ -20,10 +20,6 @@ async function main() {
   }
 
   for (const item of assets) {
-    if (!item.name.endsWith('.xpi') || !item.name.endsWith('.crx')) {
-      continue;
-    }
-
     if (item.name.endsWith('.xpi')) {
       // firefox
       const content = JSON.stringify({
