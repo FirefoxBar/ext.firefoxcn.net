@@ -71,7 +71,7 @@ async function processFirefoxUpdate(item, outputFolders, name, version) {
   for (const folder of outputFolders) {
     const baseJsonPath = join(folder, 'update.json');
     if (await exists(baseJsonPath)) {
-      console.log('read ' + item.name + ' update file from ' + baseJsonPath);
+      console.log(`read ${item.name} update file from ${baseJsonPath}`);
       originalJson = await readJSON(baseJsonPath);
       break;
     }
@@ -112,7 +112,7 @@ async function processFirefoxUpdate(item, outputFolders, name, version) {
     }
   }
   for (const folder of outputFolders) {
-    console.log('write update.json to ' + folder);
+    console.log(`write update.json to ${folder}`);
     await writeJSON(join(folder, 'update.json'), originalJson);
   }
 }
@@ -125,7 +125,7 @@ async function processChromeUpdate(item, outputFolders, name, version) {
   const content = `<?xml version='1.0' encoding='UTF-8'?><gupdate xmlns='http://www.google.com/update2/response' protocol='2.0'><app appid='${item.id}'><updatecheck codebase='${item.url}' version='${version}' ${minVersionMark}/></app></gupdate>`;
 
   for (const folder of outputFolders) {
-    console.log('write update.xml to ' + folder);
+    console.log(`write update.xml to ${folder}`);
     await write(join(folder, 'update.xml'), content);
     if (name === 'xstyle') {
       // xStyle has multi xml
