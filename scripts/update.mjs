@@ -40,7 +40,7 @@ function set(obj, path, value) {
 }
 
 function isMock() {
-  return process.env.INPUT_MOCK === 'true';
+  return process.env.MOCK === 'true';
 }
 
 async function exists(path) {
@@ -143,9 +143,9 @@ async function processChromeUpdate(item, outputFolders, name, version) {
 }
 
 async function main() {
-  const name = process.env.INPUT_NAME;
-  const version = process.env.INPUT_VERSION;
-  const assets = JSON.parse(process.env.INPUT_ASSETS);
+  const name = process.env.NAME;
+  const version = process.env.VERSION;
+  const assets = JSON.parse(process.env.ASSETS);
 
   const outputFolder = [join(__dirname, '../temp', name, 'install')];
 
