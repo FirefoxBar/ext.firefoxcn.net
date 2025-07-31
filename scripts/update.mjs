@@ -1,5 +1,5 @@
-import { writeFile, readFile, access, constants, mkdir } from 'fs/promises';
-import { join, dirname } from 'path';
+import { access, constants, mkdir, readFile, writeFile } from 'fs/promises';
+import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -41,7 +41,7 @@ function set(obj, path, value) {
 
 async function exists(path) {
   try {
-    await access(dir, constants.F_OK);
+    await access(path, constants.F_OK);
   } catch (e) {
     return false;
   }
@@ -65,14 +65,81 @@ function writeJSON(path, json) {
   return write(path, JSON.stringify(json, undefined, 2));
 }
 
+async function processFirefoxUpdate(item, outputFolders, name, version) {
+  // firefox
+  let originalJson = {};
+  for (const folder of outputFolders) {
+    const baseJsonPath = join(folder, 'update.json');
+    if (await exists(baseJsonPath)) {
+      console.log('read ' + item.name + ' update file from ' + baseJsonPath);
+      originalJson = await readJSON(baseJsonPath);
+      break;
+    }
+  }
+
+  const newUpdate = {
+    version: version,
+    update_link: item.url,
+    update_hash: `sha256:${item.hash}`,
+  };
+  if (item.min_version) {
+    newUpdate.applications = {
+      gecko: {
+        strict_min_version: item.min_version,
+      },
+    };
+  }
+
+  const updates = get(originalJson, ['addons', item.id, 'updates']);
+  if (!Array.isArray(updates)) {
+    set(originalJson, ['addons', item.id, 'updates'], [newUpdate]);
+  } else {
+    updates.unshift(newUpdate);
+    const minVersionMap = new Map();
+    for (let i = 0; i < updates.length; i++) {
+      const update = updates[i];
+      const minVersion = get(
+        update,
+        ['applications', 'gecko', 'strict_min_version'],
+        'default',
+      );
+      if (minVersionMap.has(minVersion)) {
+        updates.splice(minVersionMap.get(minVersion), 1);
+        i--;
+        minVersionMap.set(minVersion, i);
+      } else {
+        minVersionMap.set(minVersion, i);
+      }
+    }
+  }
+  for (const folder of outputFolders) {
+    console.log('write update.json to ' + folder);
+    await writeJSON(join(folder, 'update.json'), originalJson);
+  }
+}
+
+async function processChromeUpdate(item, outputFolders, name, version) {
+  const minVersionMark = item.min_version
+    ? `prodversionmin="${item.min_version}" `
+    : '';
+  const content = `<?xml version='1.0' encoding='UTF-8'?><gupdate xmlns='http://www.google.com/update2/response' protocol='2.0'><app appid='${item.id}'><updatecheck codebase='${item.url}' version='${version}' ${minVersionMark}/></app></gupdate>`;
+
+  for (const folder of outputFolders) {
+    console.log('write update.xml to ' + folder);
+    await write(join(folder, 'update.xml'), content);
+    if (name === 'xstyle') {
+      // xStyle has multi xml
+      await write(join(folder, 'updates.xml'), content);
+    }
+  }
+}
+
 async function main() {
   const name = process.env.NAME;
   const version = process.env.VERSION;
   const assets = JSON.parse(process.env.ASSETS);
 
-  const outputFolder = [
-    join(__dirname, '../temp', name, 'install'),
-  ];
+  const outputFolder = [join(__dirname, '../temp', name, 'install')];
 
   // Header Editor has multi output folders
   if (name === 'header-editor') {
@@ -81,64 +148,13 @@ async function main() {
 
   for (const item of assets) {
     if (item.name.endsWith('.xpi')) {
-      // firefox
-      let originalJson = {};
-      for (const folder of outputFolder) {
-        const baseJsonPath = join(folder, 'update.json');
-        if (await exists(baseJsonPath)) {
-          console.log('read ' + item.name + ' update file from ' + baseJsonPath);
-          originalJson = await readJSON(baseJsonPath);
-          break;
-        }
-      }
-
-      const newUpdate = {
-        version: version,
-        update_link: item.url,
-        update_hash: `sha256:${item.hash}`,
-      };
-      if (item.min_version) {
-        newUpdate.applications = {
-          gecko: {
-            strict_min_version: item.min_version,
-          }
-        };
-      }
-
-      const updates = get(originalJson, ['addons', item.id, 'updates']);
-      if (!Array.isArray(updates)) {
-        set(originalJson, ['addons', item.id, 'updates'], [newUpdate]);
-      } else {
-        updates.unshift(newUpdate);
-        // check strict_min_version, every strict_min_version only keep one
-        for (let i = updates.length - 1; i > 0; i--) {
-          if (get(updates[i], ['applications', 'gecko', 'strict_min_version']) === get(updates[i - 1], ['applications', 'gecko', 'strict_min_version'])) {
-            updates.splice(i, 1);
-          }
-        }
-      }
-      for (const folder of outputFolder) {
-        console.log('write update.json to ' + folder);
-        await writeJSON(join(folder, 'update.json'), originalJson);
-      }
+      await processFirefoxUpdate(item, outputFolder, name, version);
     }
 
     if (item.name.endsWith('.crx')) {
-      const minVersionMark = item.min_version ? `prodversionmin="${item.min_version}" ` : '';
-      // chrome
-      const content = `<?xml version='1.0' encoding='UTF-8'?><gupdate xmlns='http://www.google.com/update2/response' protocol='2.0'><app appid='${item.id}'><updatecheck codebase='${item.url}' version='${version}' ${minVersionMark}/></app></gupdate>`;
-
-      for (const folder of outputFolder) {
-        console.log('write update.xml to ' + folder);
-        await write(join(folder, 'update.xml'), content);
-        if (name === 'xstyle') {
-          // xStyle has multi xml
-          await write(join(folder, 'updates.xml'), content);
-        }
-      }
+      await processChromeUpdate(item, outputFolder, name, version);
     }
   }
-
 }
 
 main();
