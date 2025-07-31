@@ -34,7 +34,7 @@ jobs:
         ref: 'gh-pages'
         path: 'temp'
     - name: Copy public
-      run: cp -r ./public ./temp
+      run: cp -r ./public/* ./temp
     - name: Genetare update files
       env:
         MOCK: ${{ inputs.mock }}
