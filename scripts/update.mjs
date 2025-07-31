@@ -39,6 +39,10 @@ function set(obj, path, value) {
   return obj;
 }
 
+function isMock() {
+  return process.env.INPUT_MOCK === 'true';
+}
+
 async function exists(path) {
   try {
     await access(path, constants.F_OK);
@@ -53,7 +57,11 @@ async function write(path, content) {
   if (!(await exists(dir))) {
     await mkdir(dir, { recursive: true });
   }
-  await writeFile(path, content, 'utf8');
+  if (isMock()) {
+    console.log(`write ${path} with ${content}`);
+    return;
+  }
+  return writeFile(path, content, 'utf8');
 }
 
 async function readJSON(path) {
@@ -135,9 +143,9 @@ async function processChromeUpdate(item, outputFolders, name, version) {
 }
 
 async function main() {
-  const name = process.env.NAME;
-  const version = process.env.VERSION;
-  const assets = JSON.parse(process.env.ASSETS);
+  const name = process.env.INPUT_NAME;
+  const version = process.env.INPUT_VERSION;
+  const assets = JSON.parse(process.env.INPUT_ASSETS);
 
   const outputFolder = [join(__dirname, '../temp', name, 'install')];
 

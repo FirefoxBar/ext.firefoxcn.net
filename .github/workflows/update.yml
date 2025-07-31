@@ -9,6 +9,8 @@ on:
         type: string
       assets:
         type: string
+      mock:
+        type: string
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -32,10 +34,6 @@ jobs:
     - name: Copy public
       run: cp -r ./public ./temp
     - name: Genetare update files
-      env:
-        NAME: ${{ inputs.name }}
-        VERSION: ${{ inputs.version }}
-        ASSETS: ${{ inputs.assets }}
       run: node ./scripts/update.mjs
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@v4
