@@ -104,9 +104,8 @@ async function processFirefoxUpdate(item, outputFolders, name, version) {
         'default',
       );
       if (minVersionMap.has(minVersion)) {
-        updates.splice(minVersionMap.get(minVersion), 1);
+        updates.splice(i, 1);
         i--;
-        minVersionMap.set(minVersion, i);
       } else {
         minVersionMap.set(minVersion, i);
       }
@@ -122,6 +121,7 @@ async function processChromeUpdate(item, outputFolders, name, version) {
   const minVersionMark = item.min_version
     ? `prodversionmin="${item.min_version}" `
     : '';
+  // chrome
   const content = `<?xml version='1.0' encoding='UTF-8'?><gupdate xmlns='http://www.google.com/update2/response' protocol='2.0'><app appid='${item.id}'><updatecheck codebase='${item.url}' version='${version}' ${minVersionMark}/></app></gupdate>`;
 
   for (const folder of outputFolders) {
