@@ -3,9 +3,9 @@
     "headereditor@addon.firefoxcn.net": {
       "updates": [
         {
-          "version": "5.2.7",
-          "update_link": "https://github.com/FirefoxBar/HeaderEditor/releases/download/5.2.7/HeaderEditor-5.2.7-v2.xpi",
-          "update_hash": "sha256:e64e8c322fb5f311c42a9c9df7595b038cd531fe026646621b43cdaf9c11ff01",
+          "version": "5.2.8",
+          "update_link": "https://github.com/FirefoxBar/HeaderEditor/releases/download/5.2.8/HeaderEditor-5.2.8-v2.xpi",
+          "update_hash": "sha256:aed6ae0a9a97e791dcef6fd681ee49a58d7921cbe13f171d1f3a83cb1329a31a",
           "applications": {
             "gecko": {
               "strict_min_version": "113.0.0"
@@ -22,9 +22,9 @@
     "headereditor-v3@addon.firefoxcn.net": {
       "updates": [
         {
-          "version": "5.2.7",
-          "update_link": "https://github.com/FirefoxBar/HeaderEditor/releases/download/5.2.7/HeaderEditor-5.2.7-v3.xpi",
-          "update_hash": "sha256:6e7f93506c91a4158d2eb1c7f909dc8888c1679868b620caad0184ee95943700",
+          "version": "5.2.8",
+          "update_link": "https://github.com/FirefoxBar/HeaderEditor/releases/download/5.2.8/HeaderEditor-5.2.8-v3.xpi",
+          "update_hash": "sha256:1b5f4da4cfb924ae48be3a3c1f2455f848e2e129b5e6c1466fe0f94fd45bf289",
           "applications": {
             "gecko": {
               "strict_min_version": "113.0.0"
