@@ -4,7 +4,7 @@
       "updates": [
         {
           "version": "1.1.0",
-          "update_link": "https://github.com/FirefoxBar/NebulaShiftTab/releases/download/1.1.0/HeaderEditor-1.1.0.xpi",
+          "update_link": "https://github.com/FirefoxBar/NebulaShiftTab/releases/download/1.1.0/NebulaShiftTab-1.1.0.xpi",
           "update_hash": "sha256:5f8035d16da70b5722a56561d2512e65cabb79025683595bf6e161f9385f13a4",
           "applications": {
             "gecko": {
