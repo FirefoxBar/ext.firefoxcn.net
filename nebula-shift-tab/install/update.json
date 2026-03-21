@@ -4,7 +4,7 @@
       "updates": [
         {
           "version": "1.3.1",
-          "update_link": "https://github.com/FirefoxBar/NebulaShiftTab/releases/download/1.3.1/NebulaShiftTab-1.3.1.xpi",
+          "update_link": "https://gh-proxy.org/https://github.com/FirefoxBar/NebulaShiftTab/releases/download/1.3.1/NebulaShiftTab-1.3.1.xpi",
           "update_hash": "sha256:706f21bcd66df81fd6b12a840a23dce4eeed16b85823b4d9b8318092e2bdd607",
           "applications": {
             "gecko": {
