@@ -73,7 +73,7 @@ function writeJSON(path, json) {
   return write(path, JSON.stringify(json, undefined, 2));
 }
 
-async function processFirefoxUpdate(item, outputFolders, name, version) {
+async function processFirefoxUpdate(item, updateUrl, outputFolders, name, version) {
   // firefox
   let originalJson = {};
   for (const folder of outputFolders) {
@@ -87,7 +87,7 @@ async function processFirefoxUpdate(item, outputFolders, name, version) {
 
   const newUpdate = {
     version: version,
-    update_link: item.url,
+    update_link: updateUrl,
     update_hash: `sha256:${item.hash}`,
   };
   if (item.min_version) {
@@ -125,12 +125,12 @@ async function processFirefoxUpdate(item, outputFolders, name, version) {
   }
 }
 
-async function processChromeUpdate(item, outputFolders, name, version) {
+async function processChromeUpdate(item, updateUrl, outputFolders, name, version) {
   const minVersionMark = item.min_version
     ? `prodversionmin="${item.min_version}" `
     : '';
   // chrome
-  const content = `<?xml version='1.0' encoding='UTF-8'?><gupdate xmlns='http://www.google.com/update2/response' protocol='2.0'><app appid='${item.id}'><updatecheck codebase='${item.url}' version='${version}' ${minVersionMark}/></app></gupdate>`;
+  const content = `<?xml version='1.0' encoding='UTF-8'?><gupdate xmlns='http://www.google.com/update2/response' protocol='2.0'><app appid='${item.id}'><updatecheck codebase='${updateUrl}' version='${version}' ${minVersionMark}/></app></gupdate>`;
 
   for (const folder of outputFolders) {
     console.log(`write update.xml to ${folder}`);
@@ -155,12 +155,15 @@ async function main() {
   }
 
   for (const item of assets) {
-    if (item.name.endsWith('.xpi')) {
-      await processFirefoxUpdate(item, outputFolder, name, version);
+    let updateUrl = item.url;
+    if (updateUrl.startsWith('https://github.com/') && updateUrl.includes('/releases/')) {
+      updateUrl = `https://gh-proxy.org/${updateUrl}`;
     }
-
+    if (item.name.endsWith('.xpi')) {
+      await processFirefoxUpdate(item, updateUrl, outputFolder, name, version);
+    }
     if (item.name.endsWith('.crx')) {
-      await processChromeUpdate(item, outputFolder, name, version);
+      await processChromeUpdate(item, updateUrl, outputFolder, name, version);
     }
   }
 }
