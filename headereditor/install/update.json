@@ -3,9 +3,9 @@
     "headereditor@addon.firefoxcn.net": {
       "updates": [
         {
-          "version": "5.2.10",
-          "update_link": "https://gh-proxy.org/https://github.com/FirefoxBar/HeaderEditor/releases/download/5.2.10/HeaderEditor-5.2.10-v2.xpi",
-          "update_hash": "sha256:dced473b5dc692ba9f30a3d0d18582e43c292e0215a63bc9df2ae519d208538f",
+          "version": "5.2.11",
+          "update_link": "https://gh-proxy.org/https://github.com/FirefoxBar/HeaderEditor/releases/download/5.2.11/HeaderEditor-5.2.11-v2.xpi",
+          "update_hash": "sha256:74e2f588af5610de73bd445c88f899b796f1a15d41239751d099e113666ae5cb",
           "applications": {
             "gecko": {
               "strict_min_version": "113.0.0"
@@ -22,9 +22,9 @@
     "headereditor-v3@addon.firefoxcn.net": {
       "updates": [
         {
-          "version": "5.2.10",
-          "update_link": "https://gh-proxy.org/https://github.com/FirefoxBar/HeaderEditor/releases/download/5.2.10/HeaderEditor-5.2.10-v3.xpi",
-          "update_hash": "sha256:e680fa2809177a483560e036d8a2b88914fd6e078d76b115fd30fd3e5e2bebc3",
+          "version": "5.2.11",
+          "update_link": "https://gh-proxy.org/https://github.com/FirefoxBar/HeaderEditor/releases/download/5.2.11/HeaderEditor-5.2.11-v3.xpi",
+          "update_hash": "sha256:c886155782b94d56ff5c043fdb967ce344c862fd300d6c984a8b2c6a2d4596c5",
           "applications": {
             "gecko": {
               "strict_min_version": "113.0.0"
