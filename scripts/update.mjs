@@ -97,6 +97,12 @@ async function processFirefoxUpdate(item, updateUrl, outputFolders, name, versio
       },
     };
   }
+  if (item.android_min_version) {
+    newUpdate.applications = newUpdate.applications || {};
+    newUpdate.applications.gecko_android = {
+      strict_min_version: item.android_min_version,
+    };
+  }
 
   const updates = get(originalJson, ['addons', item.id, 'updates']);
   if (!Array.isArray(updates)) {
