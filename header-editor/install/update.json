@@ -3,6 +3,19 @@
     "headereditor@addon.firefoxcn.net": {
       "updates": [
         {
+          "version": "5.3.1",
+          "update_link": "https://gh-proxy.org/https://github.com/FirefoxBar/HeaderEditor/releases/download/5.3.1/HeaderEditor-5.3.1-v2.xpi",
+          "update_hash": "sha256:50a8bff8a1749bd0f9ca11a67f69306f77f7cad2a07165d83637addf102e27ba",
+          "applications": {
+            "gecko": {
+              "strict_min_version": "113.0"
+            },
+            "gecko_android": {
+              "strict_min_version": "120.0"
+            }
+          }
+        },
+        {
           "version": "5.3.0",
           "update_link": "https://gh-proxy.org/https://github.com/FirefoxBar/HeaderEditor/releases/download/5.3.0/HeaderEditor-5.3.0-v2.xpi",
           "update_hash": "sha256:f6a11cfd9d2812eeef4d4b0b8182204483352568ac2f1748eecc26643d40c8b1",
@@ -21,6 +34,19 @@
     },
     "headereditor-v3@addon.firefoxcn.net": {
       "updates": [
+        {
+          "version": "5.3.1",
+          "update_link": "https://gh-proxy.org/https://github.com/FirefoxBar/HeaderEditor/releases/download/5.3.1/HeaderEditor-5.3.1-v3.xpi",
+          "update_hash": "sha256:2bfcb2fbf4b97a0026ecf6e2f483cf5b56f9d28bddc6621970b33e8d769944b5",
+          "applications": {
+            "gecko": {
+              "strict_min_version": "113.0"
+            },
+            "gecko_android": {
+              "strict_min_version": "120.0"
+            }
+          }
+        },
         {
           "version": "5.3.0",
           "update_link": "https://gh-proxy.org/https://github.com/FirefoxBar/HeaderEditor/releases/download/5.3.0/HeaderEditor-5.3.0-v3.xpi",
