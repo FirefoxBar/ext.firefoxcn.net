@@ -1,0 +1,31 @@
+name: deploy public
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - public/**
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v6
+    - name: Checkout gh-pages branch
+      uses: actions/checkout@v6
+      with:
+        ref: 'gh-pages'
+        path: 'temp'
+    - name: Copy public
+      run: cp -r ./public/* ./temp
+    - name: Deploy
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: gh-pages
+        folder: temp
+        clean: false
