@@ -10,16 +10,16 @@
     <a id="continue" style="display: none">Continue</a>
     <script>
       (() => {
-        const clientId = "1093144396733-22kuva2susjn585850ka8euhf61n41ij.apps.googleusercontent.com";
+        const clientId = 'd742c0ec-f3ba-4ce9-949a-56507e86ca98';
         const search = new URLSearchParams(location.search);
         const params = new URLSearchParams();
-        params.append("scope", search.get("scope"));
-        params.append("include_granted_scopes", "true");
-        params.append("state", search.get("state"));
-        params.append("redirect_uri", "https://ext.firefoxcn.net/login/callback/google.html");
-        params.append("response_type", "token");
-        params.append("client_id", clientId);
-        const url = "https://accounts.google.com/o/oauth2/v2/auth?" + params.toString();
+        params.append('client_id', clientId);
+        params.append('response_type', 'code');
+        params.append('redirect_uri', 'https://login.microsoftonline.com/common/oauth2/nativeclient');
+        params.append('response_mode', 'query');
+        params.append('scope', search.get("scope"));
+        params.append('state', search.get("state"));
+        const url = "https://login.microsoftonline.com/common/oauth2/v2.0/authorize?" + params.toString();
         document.getElementById("continue").href = url;
         document.getElementById("continue").style.display = "block";
         setTimeout(() => {
