@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login with Google</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <a id="continue" style="display: none">Continue</a>
+    <script>
+      (() => {
+        const clientId = "1093144396733-22kuva2susjn585850ka8euhf61n41ij.apps.googleusercontent.com";
+        const search = new URLSearchParams(location.search);
+        const params = new URLSearchParams();
+        params.append("scope", search.get("scope"));
+        params.append("state", search.get("state"));
+        params.append("include_granted_scopes", "true");
+        params.append(
+          "redirect_uri",
+          "https://ext.firefoxcn.net/login/callback/google.html",
+        );
+        params.append("response_type", "token");
+        params.append("client_id", clientId);
+        const url = "https://accounts.google.com/o/oauth2/v2/auth" + params.toString();
+        document.getElementById("continue").href = url;
+        document.getElementById("continue").style.display = "block";
+        setTimeout(() => {
+          window.location.href = url;
+        }, 100);
+      })();
+    </script>
+  </body>
+</html>
