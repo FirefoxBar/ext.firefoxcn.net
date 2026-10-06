@@ -4,8 +4,8 @@
       "updates": [
         {
           "version": "undefined",
-          "update_link": "https://gh-proxy.org/https://github.com/FirefoxBar/NebulaShiftTab/releases/download/1.6.0/NebulaShiftTab-1.6.0.xpi",
-          "update_hash": "sha256:8552e782ce06fc83ce44902b5241ff68450f8855bb5daa518fa5c1ec0f6f3a4a",
+          "update_link": "https://gh-proxy.org/https://github.com/FirefoxBar/NebulaShiftTab/releases/download/1.6.1/NebulaShiftTab-1.6.1.xpi",
+          "update_hash": "sha256:0f0a7dbd349536421dcfa2b1e80ba9ee125b9ed85db24f7298913174485b61ff",
           "applications": {
             "gecko": {
               "strict_min_version": "113.0.0"
