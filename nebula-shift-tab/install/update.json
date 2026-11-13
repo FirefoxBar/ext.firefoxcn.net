@@ -3,9 +3,9 @@
     "nebula-shift-tab@addon.firefoxcn.net": {
       "updates": [
         {
-          "version": "1.6.3",
-          "update_link": "https://gh-proxy.org/https://github.com/FirefoxBar/NebulaShiftTab/releases/download/1.6.3/NebulaShiftTab-1.6.3.xpi",
-          "update_hash": "sha256:15c5ac8bf73bd21f271b5f66629c60c54379fd5e5a89787ef18dd5fd54a2cbad",
+          "version": "1.7.2",
+          "update_link": "https://gh-proxy.org/https://github.com/FirefoxBar/NebulaShiftTab/releases/download/1.7.2/NebulaShiftTab-1.7.2.xpi",
+          "update_hash": "sha256:aa5466864d925b2ecb452dba4d044010f079c610bc433dc09af5b95ffa37c1cf",
           "applications": {
             "gecko": {
               "strict_min_version": "113.0.0"
